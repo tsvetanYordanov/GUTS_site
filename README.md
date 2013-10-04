@@ -1,7 +1,13 @@
 GUTS_website
 ============
 TODO:
-* ics generator (for one click add event to GCal and others)
+* Email sending status - how many emails sent out of how many
+* Email sending - respect unsubscribed
+
+* Event photos upload admin interface (take from event creating?)
+* Test facebook integration on event creating
+* Facebook integration on event editing
+* ics generator/parser (for one click add event to GCal and others)
 
 ### INSTALL
 1. Install dependencies
