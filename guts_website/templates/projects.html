@@ -42,8 +42,9 @@
             {% endif %}
 
             <hr>
-            <p>{{ p.description }}</p>
+            <p>{{ p.description|safe }}</p>
           </div>
+          {% if p.technologies %}
           <div class="panel-footer">
             <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-wrench"></span>
                 {% for t in p.technologies %}
@@ -51,6 +52,7 @@
                 {% endfor %}
             </h4>
           </div>
+          {% endif %}
         </div>
       </div> <!-- !col -->
     {% if num % 2 == 0 %}

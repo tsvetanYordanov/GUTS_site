@@ -8,3 +8,5 @@ guts_website/static/img/png
 guts_website/static/img/svg
 guts_website/static/img/xfs
 guts_website/static/gallery/
+
+guts_website/sensitive.py
