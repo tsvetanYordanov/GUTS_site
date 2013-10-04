@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+{% set active_page = "home" %}
+{% block body %}
+{% include "modal-join.html" %}
+
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="item active" style="background-repeat: repeat;background-image: url('static/img/connect.png');">
+          <!--<img src="static/img/carbon_fibre_big.png" style="" alt="Welcome">-->
+          <div class="container">
+            <div class="carousel-caption" style="color:#345;">
+              <h1>Welcome to Glasgow University Tech Society!</h1>
+              <p>The Society of Proud Geeks</p>
+              <p><a data-toggle="modal" href="#modal-join" class="btn btn-primary btn-lg">Join us today!</a></p>
+            </div>
+          </div>
+        </div>
+    </div><!-- /.carousel -->
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row" style="margin-top:40px;">
+        <div class="hidden-lg col-md-4 col-sm-3 hidden-xs">
+          <img class="img-circle" src="static/img/logo_small.png" alt="GUTS Logo">
+        </div>
+        <div class="col-lg-4">
+          <div class="hidden-xs hidden-sm hidden-md">
+            <img class="img-circle" src="static/img/logo_small.png" alt="GUTS Logo">
+          </div>
+          <h2>Who?</h2>
+          <p>We are students at University of Glasgow, who can't wait to meet with awesome people/great laptop configurations. We are just like you!</p>
+          <p><a class="btn btn-default" href="/contacts" role="button">More about us &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="hidden-lg col-md-4 col-sm-3 hidden-xs">
+          <img class="img-circle" src="static/img/question.png" alt="GUTS Logo">
+        </div>
+        <div class="col-lg-4">
+          <div class="hidden-xs hidden-sm hidden-md">
+            <img class="img-circle" src="static/img/question.png" alt="Question mark pixelized">
+          </div>
+          <h2>What?</h2>
+          <p>A society for hacking, breaking, brainstorming, playing, competing...  Like the bits and bytes? You are our man/woman!</p>
+          <p><a class="btn btn-default" href="/meetings" role="button">Our activities &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="hidden-lg col-md-4 col-sm-3 hidden-xs">
+          <img class="img-circle" src="static/img/gu_logo.png" alt="GUTS Logo">
+        </div>
+        <div class="col-lg-4">
+          <div class="hidden-md hidden-sm hidden-xs">
+            <img class="img-circle" src="static/img/gu_logo.png" alt="Glasgow University Logo">
+          </div>
+          <h2>Can I join?</h2>
+          <p>We do not discriminate by choice of OS, favourite text editor or level in WoW. If you are GU student, you are more than welcome. </p>
+          <p><a class="btn btn-default" href="#modal-join" data-toggle="modal-join">Claim your prize now! &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Learn. Teach. Hack. <span class="text-muted">It's all about the machines.</span></h2>
+          <p class="lead">It doesn't matter if you are shy or the pushy type. You will find friends here and you can always talk about your passion!</p>
+        </div>
+        <div class="col-md-5 hidden-xs hidden-sm">
+          <img class="featurette-image img-responsive" src="static/img/hello_world.png" alt="Hello world computer">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-5 hidden-xs hidden-sm">
+          <img class="featurette-image img-responsive" src="static/img/copyleft.png"  alt="Copyleft">
+        </div>
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Open<span class="text-muted"> is cool</span></h2>
+          <p class="lead">Come along. Bring your machine. Stand up and talk about your idea. Find team mates. Start coding. Be amazed!</p>
+        </div>
+      </div>
+
+      <!-- /END THE FEATURETTES -->
+      
+      {% include "footer.html" %}
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <!--<script src="../static/js/bootstrap.min.js"></script>-->
+    <!--<script src="../static/js/modal.js"></script>-->
+    <script src="../static/js/get_email.js"></script>
+    <script>
+
+    </script>
+    
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

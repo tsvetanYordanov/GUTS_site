@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+  <div class="well">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="sub_update_status" hidden></div>
+      <h1>Manage your subscriptions</h1>
+      <h3>Our promise</h3>
+      <p>We will mail you for upcoming events of the society only once. We will not send you spam or any third party marketing.</p>
+      <p>Currently, <i>{{email}}</i> settings are:</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <form id="subscriptions_update">
+      {{form.email}}
+      {{form.req_key}}
+      {{form.sub_meetings()}}
+      <label>{{form.sub_meetings.label()}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      {{form.sub_hackathon()}}
+      <label>{{form.sub_hackathon.label()}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+       <a href="javascript:subscription_update()" class="btn btn-success">Submit</a>
+    </div>
+  </div>
+  </div>
+  {% include "footer.html" %}
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+function subscription_update() {
+  $.ajax({
+    type : "POST",
+    url : "/subscription_update",
+    dataType: 'text',
+    data: $("#subscriptions_update").serialize(),
+    success: function(result) {
+      if (result == "FAIL") {
+          $('#sub_update_status').hide();
+          $('#sub_update_status').attr("class", "alert alert-danger");
+          $('#sub_update_status').html("Oh no! Something wrong happened! Try again or <a href=\"mailto:team@gutechsoc.com\">contact us</a>");
+          $('#sub_update_status').slideDown();
+      } else {
+        $('#sub_update_status').hide();
+        $('#sub_update_status').attr("class", "alert alert-success");
+        $('#sub_update_status').html("Successfully updated preferences!");
+        $('#sub_update_status').slideDown();
+      }
+    }
+  });
+}
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

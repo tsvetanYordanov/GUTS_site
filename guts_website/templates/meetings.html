@@ -1,0 +1,200 @@
+{% extends "layout.html" %}
+{% set active_page = "meetings" %}
+{% block body %}
+<link rel="stylesheet" href="static/css/blueimp-gallery.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+<script>
+// Object to hold which galleries have been loaded already
+var loaded_galleries = {};
+</script>
+<!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+<!--Main container-->
+<div class="container">
+  <div class="row">
+      <div class="col-md-8">
+          <h2>See what's next. <span class="text-muted">There is always something fun.</span></h2>
+          <p class="lead">Hacking events, LAN Parties, Talks, Brainstormings...</p>
+          <p>We want our events to be free, fun and engaging. Show your cool Rasperry Pi or fine tuned Linux configuration. Geeky jokes and T-shirts - bring them on. Feel as brave here to stand up and talk as you feel behind the keyboard - we are all friends!</p>
+          <p>And if we missed something - just <a href="/contacts">contact</a> us.</p>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-3 hidden-xs hidden-sm">
+        <img src="static/img/meeting.png" alt="idea" />
+    </div>
+  </div>
+  <hr>
+  {% for e in events %}
+    {% if (e.dtstart <= now) and (e.dtend >= now) %}
+    <div class="panel panel-success">
+      <div class="panel-heading"><b>
+        Right now: started <span id="human_readable_when"></span>...
+      </b></div>
+    {% else %}
+    <div class="panel panel-primary">
+      <div class="panel-heading"><b>
+        <span id="human_readable_when_{{e.id}}"></span>...
+      </b></div>
+    {% endif %}
+    <script>
+      eval("function update_hrw_{{e.id}}() {"+
+        "hrw = moment(\"{{ e.dtstart }}\", \"YYYY-MM-DD HH:mm:SS\").fromNow();" +
+        "$(\"#human_readable_when_{{e.id}}\").html(hrw);}");
+          
+      eval("update_hrw_{{e.id}}();");
+      $(document).ready(function() {
+        setInterval(function(){eval("update_hrw_{{e.id}}();");},20000);
+      });
+    </script>
+      <div class="panel-body">
+        <div id="header">
+          <img src="static/img/{{ e.icon }}" alt="event icon" class="pull-right"/>
+          <h2>{{ e.title }}</h2>
+          <table class="table" style="width:60%">
+            <tr>
+              <td style="padding:10px;">
+                <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-calendar"></span>
+                <script>
+                  document.write(moment("{{ e.dtstart }}", "YYYY-MM-DD HH:mm:SS").format("Do MMM, ha"));
+                  document.write(" - " + moment("{{ e.dtend }}", "YYYY-MM-DD HH:mm:SS").format("ha"));
+                </script>
+                </h4>
+              </td>
+              <td style="padding:10px;">
+                <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-map-marker"></span> {{ e.location }}</h4>
+              </td>
+            </tr>
+          </table>
+          <p>
+              <a href="https://www.facebook.com/events/{{ e.fb_event }}/" target="_blank">Facebook event</a>
+              &middot;
+              <a href="webcal://www.gutechsoc.com/static/ical/GUTSEvents.ics" target="_blank">Add to your calendar</a>
+          </p>
+        </div>
+        <hr>
+        <div id="desc">
+            <p>{{ e.description|safe }}</p>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <div style="width:100%;height:350px">
+          <iframe style="width:100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q={{ e.map_query }}&ie=UTF8&z=17&t=m&iwloc=near&output=embed"></iframe><br>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  <h2 style="font-family: 'Raleway'" class="text-muted text-center">Past events</h2>
+  <hr>
+  {% for p in past_events %}
+    <div class="panel panel-default">
+      <div class="panel-heading"><b class="text-muted">
+        {{ p.title }} was
+        <script>
+        document.write(moment("{{ p.dtend }}", "YYYY-MM-DD HH:mm:SS").fromNow());
+        loaded_galleries['{{p.id}}'] = 'false';
+        </script>
+      </b></div>
+      <div class="panel-body">
+      <div style="overflow-x: scroll; white-space: nowrap;" id="gallery" >
+        <div class="row" id="gallery_{{p.id}}">
+            <!-- Content filled dynamically -->
+        </div>
+      </div>
+      </div>
+    </div>
+  {% endfor %}
+  {% include "footer.html" %}
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.5.1/jquery.nicescroll.js"></script>
+
+<script>
+// load more images dynamically
+function load_more_images(id) {
+    gurl = "/get_galleries_files?gallery_id=" + id + "";
+    $.ajax({
+        url: gurl,
+        dataType : 'json', 
+        success:function(result){
+            for (var pic = 0; pic < result.files.length; pic++){
+                a=result;
+                console.log(pic);
+                picHTML = ""
+                picHTML += 
+                    "<div class=\"col-sm-6 col-md-3\" style=\"display: inline-block; float: none\">" +
+                        "<a href=\"static/gallery/" + id + "/o/" + result.files[pic] + "\" class=\"thumbnail\">" +
+                            "<img src=\"static/gallery/" + id + "/t/" + result.files[pic] + "\" alt=\"...\">" +
+                        "</a>" +
+                        "</div>";
+                $("#gallery_" + id).append(picHTML)
+            }
+        }
+    });
+    // Lightbox element
+    document.getElementById('gallery_'+id).onclick = function (event) {
+        event = event || window.event;
+        var target = event.target || event.srcElement,
+            link = target.src ? target.parentNode : target,
+            options = {index: link, event: event},
+            links = this.getElementsByTagName('a');
+        blueimp.Gallery(links, options);
+    };
+
+}
+
+// On ready state of the page
+$(document).ready(
+    function() {
+        // Pretty scrollbars
+        $("#gallery").niceScroll();
+        // Load images that are on screen
+        for (var curId in loaded_galleries) {
+            if (loaded_galleries[curId] == "false" && $(window).height() > $("#gallery_" + curId).position().top) {
+                console.log("loaded init " + curId);
+                loaded_galleries[curId] = "true";
+                load_more_images(curId);
+            }
+        }
+        // Load more images on scroll event
+        $(window).scroll(function(){
+            for (var curId in loaded_galleries) {
+              if (loaded_galleries[curId] == "false" && $(window).height() + $(window).scrollTop() >= $("#gallery_" + curId).position().top) {
+                  console.log("loaded async " + curId);
+                  loaded_galleries[curId] = "true";
+                  load_more_images(curId);
+              }
+            }
+        });
+    }
+);
+</script>
+<script src="static/js/blueimp-gallery.min.js"></script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

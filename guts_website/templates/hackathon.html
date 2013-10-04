@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+{% set active_page = "hackathon" %}
+{% block body %}
+{% include "modal-join.html" %}
+<style type="text/css">
+.keep_calm_footer {
+    height: 23px; 
+    padding-left: 30px; 
+    padding-right: 30px;
+}
+</style>
+<div class="container">
+  <div class="jumbotron" style="background-color: #B22222; color: white">
+    <div class="container">
+      <center>
+      <img src="static/img/terminal.png" alt="terminal icon" />
+      <h1>KEEP<br>
+      CALM<br>
+      <font style="font-size: 26pt; line-height:220%">AND<br></font>
+      HACKATHON</h1>
+      <hr>
+      <h2 style="font-family: 'Raleway', sans-serif; color: white;">
+        <!--<span class="glyphicon glyphicon-calendar"></span>-->
+        <img src="/static/img/cal.png" height="30px"/>
+        November 2013
+      </h2>
+      <hr>
+      <a href="http://gutechsoc.com" target="_blank">
+        <img src="static/img/logo_bw.png" alt="gutechsoc icon" class="keep_calm_footer"/>
+      </a>
+      <a href="http://glasgowcompsoc.com/" target="_blank">
+        <img src="static/img/compsoc.png" alt="terminal icon" class="keep_calm_footer"/>
+      </a>
+      <a href="http://www.gla.ac.uk/" target="_blank">
+        <img src="static/img/uog_white.png" alt="terminal icon" class="keep_calm_footer"/>
+      </a>
+      <a href="http://www.sie.ac.uk/" target="_blank">
+        <img src="static/img/sie_logo.png" alt="terminal icon" class="keep_calm_footer"/>
+      </a>
+      <a href="http://scotlandhacks.org.uk/" target="_blank">
+        <img src="static/img/scotland_hacks.png" alt="terminal icon" class="keep_calm_footer"/>
+      </a>
+
+      <br>
+      </center>
+      
+  </div><!-- / jumbotron -->
+  </div>
+  <hr>
+    <center>
+    <p class="lead">You think you've got what it takes? Sign up here:</p>
+    <p><a data-toggle="modal" href="#modal-join" class="btn btn-primary btn-lg">Join us today!</a></p>
+  </center>
+  <hr>
+  <div class="row">
+      <div class="col-md-9">
+            <h2>Like the competition? <span class="text-muted">Show us!</span></h2>
+            <p class="lead">Come and demonstrate your superpowers against fellow Glasgow students. Try one of our challenges or pick your own thing. All you have is 48 hours.</p>
+      </div>
+      <div class="col-md-3 hidden-xs hidden-sm">
+        <img src="static/img/clock.png" alt="clock" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm">
+        <img src="static/img/brain_bomb.png" alt="brain bomb"/>
+    </div>
+      <div class="col-md-9">
+            <h2>What is in there for me? <span class="text-muted">Brain bomb!</span></h2>
+            <p class="lead">It's pretty tough. So we'll suply some fuel. And some goodies for the best ones.</p>
+      </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-2"></div>
+      <div align="justify" class="col-lg-8">
+        <center><h2>More information? <span class="text-muted">Here is some text:</span></h2></center>
+        <p>We want the hackathon teams to compete on various challenges proposed by our academics, private companies -- both corporations and small startups -- and students themselves. Choosing the challenges, we are going to aim for a broad coverage of interesting problems within modern Computing Science and Tech Industry. Our sponsors will have the priority for proposing the challenges. </p>
+        <p>If you are a student or aspiring programmer, just register <a data-toggle="modal" href="#modal-join">here</a> and we'll update you with more details about the event soon.<br>
+        If you are representing a company and this looks interesting, tell us and we'll send you a document with more information.<br>
+        In every case you can do the following by <a href="/contacts">contacting us</a>:<p>
+        <ul>
+          <li>Propose a challenge for the hackathon</li>
+          <li>Help us with some sponsorship/donation</li>
+          <li>Provide prizes for the best ones.</li>
+        </ul>
+      <i class="pull-right">Thank you for your consideration and we would love to hear from you soon!</i>
+      </div>
+  </div>
+  
+
+
+  {% include "footer.html" %}
+</div>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <!--<script src="../static/js/bootstrap.min.js"></script>-->
+    <!--<script src="../static/js/modal.js"></script>-->
+    <script src="../static/js/get_email.js"></script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

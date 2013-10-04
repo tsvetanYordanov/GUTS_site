@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% set active_page = "projects" %}
+{% block body %}
+<div class="container">
+  <div class="row">
+      <div class="col-md-8">
+          <h2>No attachments. No stress. <span class="text-muted">Do what you like, when you like!</span></h2>
+          <p class="lead">Pick any of these project or <a href="mailto:team@gutechsoc.com">suggest</a> your own.</p>
+          <p>One of the biggest missions of this society is to promote open source coding and practice team work. You can pick any of the projects listed below and start reading the code. Fix it, tweak it, hack it and tell the author. Soon, your contribution can up and live! And you can continue working together as a team - it's all up to you! We will meet every week so that we can work together and have fun.</p>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-3 hidden-xs hidden-sm">
+        <img src="static/img/idea.png" alt="idea" />
+    </div>
+  </div>
+  <hr>
+  {% if projects|length == 0 %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Comming soon...</h1>
+        </div>
+  </div>
+  {% endif %}
+  {% for p in projects %}
+    <div class="panel">
+      <div class="panel-body">
+        <h2>{{ p.title }}</h2>
+        <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-user"></span>
+            {{ p.author }}
+        </h4>
+        <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-wrench"></span>
+            {% for t in p.technologies %}
+                <a href="{{ t.website}}" target="_blank">{{ t.name }}  </a>
+            {% endfor %}
+        </h4>
+        <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-globe"></span>
+            <a href="{{ p.website }}" target="_blank">Code</a>
+        </h4>
+
+        <hr>
+        <p>{{ p.description }}</p>
+      </div>
+    </div>
+  {% endfor %}
+  {% include "footer.html" %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

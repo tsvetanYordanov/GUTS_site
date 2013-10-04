@@ -1,0 +1,21 @@
+  <!-- Modal -->
+  <div class="modal fade" id="event-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content" style="padding:30px;">
+            <h1>Enter new event</h1>
+            <form class="form-horizontal" role="form" id="form-event-add">
+            {% from "_formhelpers.html" import render_field %}
+            {% for ff in form_event_add %}
+              {{ render_field(ff) }}
+            {% endfor %}
+              <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                  <button type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <a href="javascript:event_add();" class="btn btn-success">Add event <img id="add_event_loading" hidden src="/static/img/ajax-loader.gif" /></a>
+                </div>
+              </div>
+            </form>
+        <!--End of Add event tab-->
+      </div>
+    </div>
+  </div>

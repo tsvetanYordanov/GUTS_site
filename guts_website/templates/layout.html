@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Website of Glasgow University Tech Society">
+    <meta name="author" content="Daniel Tsvetkov">
+    <link rel="shortcut icon" href="../static/ico/favicon.png">
+
+    <title>Glasgow University Tech Society</title>
+
+    <!-- Bootstrap core CSS -->
+    <!--<link href="../static/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="static/js/html5shiv.js"></script>
+      <script src="static/js/respond.min.js"></script>
+    <![endif]-->
+    <!-- Custom styles for carousel -->
+    <link href="../static/css/carousel.css" rel="stylesheet">
+    <!-- Custom styles for GUTS-->
+    <link href="../static/css/custom.css" rel="stylesheet">
+    <!-- Google Analytics code -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-44013002-1', 'gutechsoc.com');
+      ga('send', 'pageview');
+    </script>
+    <style type="text/css">
+      body
+      {
+      background-image:url('../static/img/sq.png');
+      background-repeat:repeat;
+      } 
+    </style>
+  </head>
+  <body>
+    {% set active_page = active_page %}
+    {% include "navigation.html" %}
+    {% block body %} {% endblock %}
+  <!-- Facebook like button -->
+  <div id="fb-root"></div>
+  <script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=418225374954456";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <!-- Google + 1 Button -->
+  <script type="text/javascript">
+    (function() {
+      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+      po.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+  </script>
+  </body>
+</html>
+

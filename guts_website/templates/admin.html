@@ -1,0 +1,230 @@
+{% extends "layout.html" %}
+{% block body %}
+{% include "modal-event-add.html" %}
+{% include "modal-event-edit.html" %}
+{% include "modal-event-remove.html" %}
+{% include "modal-event-email.html" %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <a href="/logout" class="pull-right">logout</a>
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#members" data-toggle="tab">Members</a></li>
+            <li><a href="#events" data-toggle="tab">Events</a></li>
+            <li><a href="#projects" data-toggle="tab">Projects</a></li>
+            <li><a href="#technologies" data-toggle="tab">Technologies</a></li>
+          </ul>
+          <div class="tab-content">
+            <!--Members tab-->
+            <div class="tab-pane active" id="members">
+                <h1>Members</h1>
+                <table class="table table-hover">
+                <tr><th>Name</th><th>Email</th></tr>
+                {% for m in members %}
+                  <tr {% if m.gumail != 1 %}class="danger"{% endif %}><td>{{ m.fullname }}</td><td>{{ m.email }}</td></tr>
+                {% endfor %}
+                </table>
+            </div>
+            <!--End of members tab-->
+            <!--Events tab-->
+            <div class="tab-pane" id="events">
+              
+              <a data-toggle="modal" href="#event-add" class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Add event</a>
+              <h1>Events</h1>
+              <table class="table table-hover" id="events_table">
+              <tr><th>Title</th><th>Start</th><th>End</th><th>Location</th><th ></th></tr>
+              </table>
+            </div>
+            <!--End of events tab-->
+            <!--Projects tab-->
+            <div class="tab-pane" id="projects">
+                  <h1>Projects</h1>
+            </div>
+            <!--End of projects tab-->
+            <!--Projects tab-->
+            <div class="tab-pane" id="technologies">
+                  <h1>Technologies</h1>
+            </div>
+            <!--End of projects tab-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script>
+function event_edit_dialog_values_fill(event_data) {
+  $('input,textarea', "#form-event-edit").each(function(){
+    if ($(this).attr('id') != 'action') {
+      $(this).val(event_data[$(this).attr('name')]);
+    }
+  });
+}
+
+function event_edit_dialog(id){
+  $('#event-edit').modal('show');
+    $.ajax({
+    type: "GET",
+    url: "/get_events",
+    dataType: "json",
+    data: {
+      'event_id': id
+    },
+    success: function(result){
+        event_edit_dialog_values_fill(result.posts[0]);
+        
+    }
+  })
+}
+
+function event_remove_dialog(id){
+  $('#event-remove').modal('show');
+  $('#event_remove_id').val(id);
+}
+
+function event_add() {
+  $("#add_event_loading").show();
+  $.ajax({
+    type : "POST",
+    url : "/ufb",
+    dataType: 'text',
+    data: $("#form-event-add").serialize(),
+    success: function(result) {
+      console.log("facebook event: " + result);
+      $("#fb_event").val(result);
+    }
+  });
+  $.ajax({
+    type : "POST",
+    url : "/admin_page",
+    dataType: 'text',
+    data: $("#form-event-add").serialize(),
+    success: function(result) {
+      console.log("added event");
+      $("#events_table").find('tbody').html("");
+      update_event_table();
+      $('#event-add').modal('hide');
+    }
+  });
+}
+
+function event_edit() {
+  $.ajax({
+    type : "POST",
+    url : "/admin_page",
+    dataType: 'text',
+    data: $("#form-event-edit").serialize(),
+    success: function(result) {
+      console.log("edited event ");
+      $("#events_table").find('tbody').html("");
+      update_event_table();
+      $('#event-edit').modal('hide');
+    }
+  });
+}
+
+function event_remove() {
+  var rid = $('#event_remove_id').val();
+  $.ajax({
+    type : "POST",
+    url : "/admin_page",
+    dataType: 'text',
+    data: {
+      'action': 'event-remove',
+      'event_id': rid
+    },
+    success: function(result) {
+      console.log("removed event " + rid);
+      $("#event-"+rid).remove();
+      $('#event-remove').modal('hide');
+    }
+  });
+}
+function add_row(row_data) {
+  console.log(row_data);
+  $("#events_table").find('tbody')
+    .append($('<tr>')
+        .attr('id', "event-" + row_data.id)
+        .append($('<td>')
+            .html(row_data.title)
+        )
+        .append($('<td>')
+            .html(row_data.dtstart)
+        )
+        .append($('<td>')
+            .html(row_data.dtend)
+        )
+        .append($('<td>')
+            .html(row_data.location)
+        )
+        .append($('<td width="30%">')
+            .html(  "<a href=\"javascript:event_edit_dialog(" + row_data.id + ")\" class=\"btn btn-warning\"><span class=\"glyphicon glyphicon-edit\"></span></a> " +
+                    "<a href=\"javascript:event_remove_dialog(" + row_data.id + ")\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-ban-circle\"></span></a> " +
+                    "<a href=\"javascript:event_email(" + row_data.id + ")\" class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-envelope\"></span></a> " +
+                    "<a href=\"javascript:event_upload(" + row_data.id + ")\" class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-upload\"></span></a>")
+        )
+    );
+
+}
+function update_event_table() {
+  $.ajax({
+    type: "GET",
+    url: "/get_events",
+    dataType: "json",
+    success: function(result){
+      for (var i = 0; i < result.posts.length; i++)
+        add_row(result.posts[i]);
+    }
+  })
+}
+
+function event_email(id) {
+  $('#event-email').modal('show');
+  $("#event-email-id").val(id);
+  $("#email_event_iframe").attr('src', "/email_template?event_id="+id)
+}
+
+function send_email() {
+  var event_id = $("#event-email-id").val();
+  $.ajax({
+    type: "GET",
+    url: "/send_email",
+    data: {'event_id': event_id},
+    success: function(result){
+      $("#event_email_status").slideDown();
+      $("#event_email_status").html(result);
+    }
+  })
+}
+
+$(document).ready(function() {
+  update_event_table();
+});
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

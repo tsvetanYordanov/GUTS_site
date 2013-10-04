@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//flypig.co.uk/iCalGen 0.1//EN
+BEGIN:VEVENT
+UID:20130918T151030Z-5806@flypig.co.uk
+DTSTAMP:20130918T151030Z
+DTSTART:20130920T160000Z
+DTEND:20130920T180000Z
+SUMMARY:LAN Party
+DESCRIPTION:The best way to start a new year: LAN PARTY during the fresher's week!!<br>Bring your laptop and a pack of something crunchy to share with the others!<br><br>Games planned:<br>Warcraft3<br>Counter strike 1.6<br>Fifa13 - we have a big projector screen ;)<br>You can also play a game of you choice but the condition is that you need to gather enough people to form a team/teams<br><br>Only games playable over a router or single machine are allowed as most of the internet ports are blocked in BO.<br><br>The event will take place in level 7 Seminar rooms.
+LOCATION:Boyd Orr Building 710, Glasgow
+END:VEVENT
+END:VCALENDAR
