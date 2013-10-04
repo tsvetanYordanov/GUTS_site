@@ -50,7 +50,7 @@ python
 >>>> db.create_all()
 
 To add new technology:
-project = models.Project("website", "me", "www", "Hello world")
+project = models.Project("title", "author", "contact", "web address", "description", "icon")
 project.technologies.append(models.Technology("flask", "http://flask.pocoo.org/"))
 db.session.add(project);
 db.session.commit()

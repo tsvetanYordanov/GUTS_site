@@ -21,26 +21,42 @@
         </div>
   </div>
   {% endif %}
+  {% set num = 1 %}
   {% for p in projects %}
-    <div class="panel">
-      <div class="panel-body">
-        <h2>{{ p.title }}</h2>
-        <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-user"></span>
-            {{ p.author }}
-        </h4>
-        <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-wrench"></span>
-            {% for t in p.technologies %}
-                <a href="{{ t.website}}" target="_blank">{{ t.name }}  </a>
-            {% endfor %}
-        </h4>
-        <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-globe"></span>
-            <a href="{{ p.website }}" target="_blank">Code</a>
-        </h4>
+    {% if num % 2 == 1 %}
+    <div class="row">
+    {% endif %}
+      <div class="col-lg-6">
+        <div class="panel panel-primary">
+          <div class="panel-body">
+            <img src="static/p_img/{{ p.icon }}" alt="project icon" class="pull-right"/>
+            <h2>{{ p.title }}</h2>
+            <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-user"></span>
+                <a href="{{p.contact}}" target="_blank">{{ p.author }}</a>
+            </h4>
+            {% if p.website%}
+            <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-globe"></span>
+                
+                <a href="{{ p.website }}" target="_blank">code</a>
+            </h4>
+            {% endif %}
 
-        <hr>
-        <p>{{ p.description }}</p>
-      </div>
-    </div>
+            <hr>
+            <p>{{ p.description }}</p>
+          </div>
+          <div class="panel-footer">
+            <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-wrench"></span>
+                {% for t in p.technologies %}
+                    <a href="{{ t.website}}" target="_blank">{{ t.name }}  </a>
+                {% endfor %}
+            </h4>
+          </div>
+        </div>
+      </div> <!-- col -->
+    {% if num % 2 == 1 %}
+    </div>  <!-- row -->
+    {% endif %}
+    {% set num = num + 1 %}
   {% endfor %}
   {% include "footer.html" %}
 {% endblock %}

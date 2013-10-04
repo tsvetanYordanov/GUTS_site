@@ -95,21 +95,25 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), unique=True)
     author = db.Column(db.String(120), unique=False)
+    contact = db.Column(db.String(120), unique=False)
     website = db.Column(db.String(120), unique=True)
     description = db.Column(db.String(1000), unique=False)
+    icon = db.Column(db.String(100), unique=False)
     
     technologies = db.relationship('Technology',
                    secondary=pro_tech,
                    backref=db.backref('projects', lazy='dynamic'))
 
-    def __init__(self, title, author, website, description):
+    def __init__(self, title, author, contact, website, description, icon):
         self.title = title
         self.author = author
+        self.contact = contact
         self.website = website
         self.description = description
+        self.icon = icon
 
     def __repr__(self):
-        return '<name %r>' % self.name
+        return '<name %r>' % self.title
 
 class Technology(db.Model):
     __tablename__ = 'technology'
