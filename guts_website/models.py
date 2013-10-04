@@ -96,7 +96,7 @@ class Project(db.Model):
     title = db.Column(db.String(120), unique=True)
     author = db.Column(db.String(120), unique=False)
     contact = db.Column(db.String(120), unique=False)
-    website = db.Column(db.String(120), unique=True)
+    website = db.Column(db.String(120), unique=False)
     description = db.Column(db.String(1000), unique=False)
     icon = db.Column(db.String(100), unique=False)
     
