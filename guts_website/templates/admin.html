@@ -1,8 +1,16 @@
 {% extends "layout.html" %}
 {% block body %}
+
 {% include "modal-event-add.html" %}
 {% include "modal-event-edit.html" %}
 {% include "modal-event-remove.html" %}
+
+{% include "modal-project-add.html" %}
+
+{% include "modal-technology-add.html" %}
+
+{% include "modal-platform-add.html" %}
+
 {% include "modal-event-email.html" %}
 <div class="container">
   <div class="row">
@@ -15,7 +23,6 @@
             <li class="active"><a href="#members" data-toggle="tab">Members</a></li>
             <li><a href="#events" data-toggle="tab">Events</a></li>
             <li><a href="#projects" data-toggle="tab">Projects</a></li>
-            <li><a href="#technologies" data-toggle="tab">Technologies</a></li>
           </ul>
           <div class="tab-content">
             <!--Members tab-->
@@ -41,12 +48,11 @@
             <!--End of events tab-->
             <!--Projects tab-->
             <div class="tab-pane" id="projects">
-                  <h1>Projects</h1>
-            </div>
-            <!--End of projects tab-->
-            <!--Projects tab-->
-            <div class="tab-pane" id="technologies">
-                  <h1>Technologies</h1>
+              <a data-toggle="modal" href="#project-add" class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Add project</a>
+              <h1>Projects</h1>
+              <table class="table table-hover" id="projects_table">
+              <tr><th>Title</th><th>Author</th><th ></th></tr>
+              </table>
             </div>
             <!--End of projects tab-->
           </div>
@@ -145,7 +151,7 @@ function event_remove() {
     }
   });
 }
-function add_row(row_data) {
+function event_add_row(row_data) {
   console.log(row_data);
   $("#events_table").find('tbody')
     .append($('<tr>')
@@ -169,20 +175,102 @@ function add_row(row_data) {
                     "<a href=\"javascript:event_upload(" + row_data.id + ")\" class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-upload\"></span></a>")
         )
     );
-
 }
-function update_event_table() {
+function event_table_update() {
   $.ajax({
     type: "GET",
     url: "/get_events",
     dataType: "json",
     success: function(result){
       for (var i = 0; i < result.posts.length; i++)
-        add_row(result.posts[i]);
+        event_add_row(result.posts[i]);
     }
   })
 }
 
+// ********** PROJECTS FUNCTIONS *********//
+function project_add_row(row_data) {
+  console.log(row_data);
+  $("#projects_table").find('tbody')
+    .append($('<tr>')
+        .attr('id', "project-" + row_data.id)
+        .append($('<td>')
+            .html(row_data.title)
+        )
+        .append($('<td>')
+            .html(row_data.author)
+        )
+        .append($('<td width="30%">')
+            .html(  "<a href=\"javascript:project_edit_dialog(" + row_data.id + ")\" class=\"btn btn-warning\"><span class=\"glyphicon glyphicon-edit\"></span></a> " +
+                    "<a href=\"javascript:project_remove_dialog(" + row_data.id + ")\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-ban-circle\"></span></a> ")
+        )
+    );
+}
+
+function project_table_update() {
+  $.ajax({
+    type: "GET",
+    url: "/get_projects",
+    dataType: "json",
+    success: function(result){
+      for (var i = 0; i < result.posts.length; i++)
+        project_add_row(result.posts[i]);
+    }
+  })
+}
+
+// ************* TECHNOLOGY FUNCTIONS ********** //
+function technology_add() {
+  var selected = $("#technologies_select").val();
+  for (var i = 0; i < selected.length; i++) {
+      $.ajax({
+        type: "GET",
+        url: "/get_technologies",
+        data: {"technology_id": selected[i]},
+        dataType: "json",
+        success: function(result){
+          $("#technologies_list").html("<span class=\"label label-primary\">"+result.posts[0].name+"</span>");
+        }
+      })
+    
+  }
+}
+function technology_add_select(row_data) {
+    $("#technologies_select")
+      .append("<option value=\""+row_data.id+"\">"+row_data.name+" ("+row_data.website+")</option>");
+}
+
+function technology_add_row(row_data) {
+  $("#technologies_table").find('tbody')
+    .append($('<tr>')
+        .attr('id', "technology-" + row_data.id)
+        .append($('<td>')
+            .html(row_data.name)
+        )
+        .append($('<td>')
+            .html(row_data.website)
+        )
+        .append($('<td width="30%">')
+            .html(  "<a href=\"javascript:technology_edit_dialog(" + row_data.id + ")\" class=\"btn btn-warning\"><span class=\"glyphicon glyphicon-edit\"></span></a> " +
+                    "<a href=\"javascript:technology_remove_dialog(" + row_data.id + ")\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-ban-circle\"></span></a> ")
+        )
+    );
+}
+
+function technology_table_update() {
+  $.ajax({
+    type: "GET",
+    url: "/get_technologies",
+    dataType: "json",
+    success: function(result){
+      for (var i = 0; i < result.posts.length; i++)
+        //technology_add_row(result.posts[i]);
+        technology_add_select(result.posts[i]);
+    }
+  })
+}
+
+// *********** EMAIL FUNCTIONS **************//
 function event_email(id) {
   $('#event-email').modal('show');
   $("#event-email-id").val(id);
@@ -203,7 +291,9 @@ function send_email() {
 }
 
 $(document).ready(function() {
-  update_event_table();
+  event_table_update();
+  project_table_update();
+  technology_table_update();
 });
 </script>
 {% endblock %}

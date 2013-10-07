@@ -30,9 +30,30 @@ class AddEventForm(EventForm):
 class EditEventForm(EventForm):
     id = HiddenField()
     action = HiddenField(default='event-edit')
+    
+class ProjectForm(Form):
+    title = TextField('Title')
+    author = TextField('Author')
+    contact = TextField('Contact')
+    website = TextField('Website')
+    description = TextAreaField('Description')
+    icon = TextField('Icon')
+    
+class AddProjectForm(ProjectForm):
+    action = HiddenField(default='project-add')
+
+class TechnologyForm(Form):
+    name= TextField('Technology')
+    website = TextField('Website')
 
 class SubscriptionsForm(EventForm):
     email = HiddenField('email')
     req_key = HiddenField('req_key')
     sub_meetings = BooleanField('Subscribe to meetings notifications')
     sub_hackathon = BooleanField('Subscribe to hackathon notifications')
+
+
+
+
+
+

@@ -12,7 +12,7 @@ from flask import render_template, request, send_from_directory, session, redire
 from guts_website import app, models, db, users
 from guts_website.sensitive import FB_PAGE_ID, FB_ACCESS_TOKEN, GALLERY_PATH, HASH_SALT, EMAIL_ADDRESS, EMAIL_PASSWORD, SMTP_SERVER
 
-from forms import LoginForm, EmailForm, AddEventForm, EditEventForm, SubscriptionsForm
+from forms import LoginForm, EmailForm, AddEventForm, EditEventForm, AddProjectForm, SubscriptionsForm
 from flask.ext.login import (LoginManager, current_user, login_required,
                             login_user, logout_user)
                             
@@ -77,6 +77,10 @@ def show_submit():
 @app.route('/sitemap.xml')
 def sitemap():
     return send_from_directory(app.static_folder, request.path[1:])
+
+@app.route('/hackathon_details.pdf')
+def hackathon_details():
+    return send_from_directory(app.static_folder, request.path[1:])
     
 @app.route('/get_galleries_files')
 def galleries():
@@ -91,6 +95,33 @@ def get_events():
     else:
         events = models.Event.query.all();
     return jsonify(posts=list(events));
+    
+@app.route('/get_projects')
+def get_projects():
+    pid = request.args.get("project_id")
+    if (pid):
+        projects = models.Project.query.filter(models.Project.id == pid).all();
+    else:
+        projects = models.Project.query.all();
+    return jsonify(posts=list(projects));
+
+@app.route('/get_technologies')
+def get_technologies():
+    tid = request.args.get("technology_id")
+    if (tid):
+        technologies = models.Technology.query.filter(models.Technology.id == tid).all();
+    else:
+        technologies = models.Technology.query.all();
+    return jsonify(posts=list(technologies));
+    
+@app.route('/get_platforms')
+def get_platforms():
+    pid = request.args.get("platform_id")
+    if (pid):
+        platforms = models.Platform.query.filter(models.Platform.id == pid).all();
+    else:
+        platforms = models.Platform.query.all();
+    return jsonify(posts=list(platforms));
    
 ################################################################################
 ##########################         LOGIN         ###############################
@@ -111,6 +142,7 @@ def load_user(id):
 def admin():
     form_event_add = AddEventForm()
     form_event_edit = EditEventForm()
+    form_project_add = AddProjectForm()
     if request.method == 'GET':
         members = models.Member.query.all();
         events = models.Event.query.all();
@@ -118,7 +150,8 @@ def admin():
         technologies = models.Technology.query.all();
         return render_template('admin.html', 
                                 form_event_add = form_event_add, 
-                                form_event_edit = form_event_edit, 
+                                form_event_edit = form_event_edit,
+                                form_project_add = form_project_add,
                                 members = members, 
                                 projects = projects, 
                                 technologies = technologies

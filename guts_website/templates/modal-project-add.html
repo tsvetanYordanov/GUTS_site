@@ -1,0 +1,35 @@
+  <!-- Modal -->
+  <div class="modal fade" id="project-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content" style="padding:30px;">
+            <h1>Enter new project</h1>
+            <form class="form-horizontal" role="form" id="form-event-add">
+            {% from "_formhelpers.html" import render_field %}
+            {% for ff in form_project_add %}
+              {{ render_field(ff) }}
+            {% endfor %}
+            <div class="form-group">
+              <label for="technologies_list" class="col-lg-2 control-label">Technologies</label>
+              <div class="col-lg-10">
+                <div id="technologies_list"><i>None selected</i></div>
+                <a data-toggle="modal" href="#technology-add" class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus-sign"></span></a>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="platforms_list" class="col-lg-2 control-label">Platforms</label>
+              <div class="col-lg-10">
+                <div id="platforms_list"><i>None selected</i></div>
+                <a data-toggle="modal" href="#platform-add" class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus-sign"></span></a>
+              </div>
+            </div>
+              <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                  <button type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <a href="javascript:project_add();" class="btn btn-success">Add project <img id="add_project_loading" hidden src="/static/img/ajax-loader.gif" /></a>
+                </div>
+              </div>
+            </form>
+        <!--End of Add event tab-->
+      </div>
+    </div>
+  </div>
