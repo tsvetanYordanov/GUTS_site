@@ -2,7 +2,6 @@
 {% if not (field.name == 'csrf_token' or field.name == 'action' or field.name == 'id' or field.name == 'fb_event') %}
 <div class="form-group">
   {{ field.label(class="col-lg-2 control-label") }}
-  <!--<label for="inputEmail1" class="col-lg-2 control-label">Email</label>-->
   <div class="col-lg-10">
     {{ field(class='form-control')|safe }}
   </div>

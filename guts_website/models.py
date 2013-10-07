@@ -90,7 +90,12 @@ pro_tech = db.Table('pro_tech',
     db.Column('technology_id', db.Integer, db.ForeignKey('technology.id'))
 )
 
-class Project(db.Model):
+pro_plat = db.Table('pro_plat',
+    db.Column('project_id', db.Integer, db.ForeignKey('project.id')),
+    db.Column('platform_id', db.Integer, db.ForeignKey('platform.id'))
+)
+
+class Project(db.Model, DictSerializable):
     __tablename__ = 'project'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), unique=True)
@@ -115,7 +120,7 @@ class Project(db.Model):
     def __repr__(self):
         return '<name %r>' % self.title
 
-class Technology(db.Model):
+class Technology(db.Model, DictSerializable):
     __tablename__ = 'technology'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True)
@@ -128,6 +133,16 @@ class Technology(db.Model):
     def __repr__(self):
         return '<name %r>' % self.name
         
+class Platform(db.Model, DictSerializable):
+    __tablename__ = 'platform'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), unique=True)
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return '<name %r>' % self.name
 
 
 

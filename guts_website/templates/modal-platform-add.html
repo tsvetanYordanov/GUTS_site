@@ -1,0 +1,24 @@
+  <!-- Modal -->
+  <div class="modal fade" id="platform-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content" style="padding:30px;">
+            <h1>Select platforms</h1>
+            <form class="form-horizontal" role="form" id="form-platform-add">
+            <table class="table table-hover" id="platforms_table">
+              <tr><th>Name</th><th ></th></tr>
+              </table>
+            {% from "_formhelpers.html" import render_field %}
+            {% for ff in form_technology_add %}
+              {{ render_field(ff) }}
+            {% endfor %}
+              <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                  <button type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <a href="javascript:technology_add();" class="btn btn-success">Add platform <img id="add_platform_loading" hidden src="/static/img/ajax-loader.gif" /></a>
+                </div>
+              </div>
+            </form>
+        <!--End of Add platform tab-->
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,26 @@
+  <!-- Modal -->
+  <div class="modal fade" id="technology-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content" style="padding:30px;">
+            <h1>Select technologies</h1>
+            <form class="form-horizontal" role="form" id="form-technology-add">
+            <select id="technologies_select" multiple style="width: 100%; border: none; height: 200px;">
+            </select>
+            <!--<table class="table table-hover" id="technologies_table">
+              <tr><th>Name</th><th>Website</th><th ></th></tr>
+              </table>-->
+            {% from "_formhelpers.html" import render_field %}
+            {% for ff in form_technology_add %}
+              {{ render_field(ff) }}
+            {% endfor %}
+              <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                  <button type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <a href="javascript:technology_add();" class="btn btn-success">Add technology <img id="add_technology_loading" hidden src="/static/img/ajax-loader.gif" /></a>
+                </div>
+              </div>
+            </form>
+        <!--End of Add event tab-->
+      </div>
+    </div>
+  </div>
