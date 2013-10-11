@@ -50,9 +50,9 @@ var loaded_galleries = {};
         "hrw = moment(\"{{ e.dtstart }}\", \"YYYY-MM-DD HH:mm:SS\").fromNow();" +
         "$(\"#human_readable_when_{{e.id}}\").html(hrw);}");
           
-      eval("update_hrw_{{e.id}}();");
+      update_hrw_{{e.id}}();
       $(document).ready(function() {
-        setInterval(function(){eval("update_hrw_{{e.id}}();");},20000);
+        setInterval(function(){update_hrw_{{e.id}}()},20000);
       });
     </script>
       <div class="panel-body">
