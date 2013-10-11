@@ -36,7 +36,7 @@ def show_meetings():
     
 @app.route('/projects')
 def show_projects():
-    projects = models.Project.query.all();
+    projects = models.Project.query.order_by(models.Project.id.desc()).all();
     return render_template('projects.html', projects = projects)
 
 @app.route('/hackathon')
