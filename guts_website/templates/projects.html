@@ -29,14 +29,15 @@
       <div class="col-lg-6"> <!-- col -->
         <div class="panel panel-primary">
           <div class="panel-body">
+            {% if p.icon %}
             <img src="static/p_img/{{ p.icon }}" style="height: 150px" alt="project icon" class="pull-right"/>
+            {% endif %}
             <h2>{{ p.title }}</h2>
             <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-user"></span>
                 <a href="{{p.contact}}" target="_blank">{{ p.author }}</a>
             </h4>
             {% if p.website%}
             <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-globe"></span>
-                
                 <a href="{{ p.website }}" target="_blank">code</a>
             </h4>
             {% endif %}
