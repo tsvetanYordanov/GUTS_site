@@ -44,6 +44,10 @@ def show_hackathon():
     form = EmailForm()
     return render_template('hackathon.html', form = form)
     
+@app.route('/sponsors')
+def show_sponsors():
+    return render_template('sponsors.html')
+
 @app.route('/contacts')
 def show_contacts():
     return render_template('contacts.html')
