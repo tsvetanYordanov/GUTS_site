@@ -12,12 +12,12 @@ TODO:
 ### INSTALL
 1. Install dependencies
 ```bash
-sudo apt-get install git mysql-server apache2 python-pip libapache2-mod-wsgi python-mysqldb
+sudo apt-get install git mysql-server apache2 python-pip libapache2-mod-wsgi
 ```
 
 2. Install flask and other python modules:
 ```bash
-pip install flask-sqlalchemy flask-wtf flask-login requests
+pip install flask-sqlalchemy flask-wtf flask-login requests python-mysql
 ```
 
 3. Assuming cloned to /var/www, add to /etc/apache2/httpd.conf:
