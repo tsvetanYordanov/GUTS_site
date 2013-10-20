@@ -11,19 +11,18 @@ TODO:
 
 ### INSTALL
 1. Install dependencies
-<pre><code>
+```bash
 sudo apt-get install git mysql-server apache2 python-pip libapache2-mod-wsgi python-mysqldb
-</code></pre>
+```
 
 2. Install flask and other python modules:
-<pre><code>
+```bash
 pip install flask-sqlalchemy flask-wtf flask-login requests
-</code></pre>
+```
 
 3. Assuming cloned to /var/www, add to /etc/apache2/httpd.conf:
-<pre><code>
+```apache
     <VirtualHost *>
-
         WSGIDaemonProcess application user=www-data group=www-data threads=5
         WSGIScriptAlias / /var/www/GUTS_website/guts.wsgi
 
@@ -34,30 +33,32 @@ pip install flask-sqlalchemy flask-wtf flask-login requests
             Allow from all
         </Directory>
     </VirtualHost>
-</code></pre>
+```
 
 4. Create mysql user and database:
-<pre><code>
+```mysql
 create database guts;
 create user 'guts'@'localhost' identified by 'password';
 grant all privileges on guts.* to 'guts'@'localhost';
-</code></pre>
+```
 
 5. Create tables from the models:
-<pre><code>
-python
+```python
 >>>> from guts_website import db, models
 >>>> db.create_all()
+```
 
+### CONFIGURE
+The file `guts_website/sensitive.py` contains passwords which are not the same as in the production environment for obvious reasons. You can play with the sandbox page as much as you would like.
+
+### USE
 To add new technology:
+```python
 project = models.Project("title", "author", "contact", "web address", "description", "icon")
 project.technologies.append(models.Technology("flask", "http://flask.pocoo.org/"))
 db.session.add(project);
 db.session.commit()
-</code></pre>
-
-### CONFIGURE
-The file `guts_website/sensitive.py` contains passwords which are not the same as in the production environment for obvious reasons. You can play with the sandbox page as much as you would like.
+```
 
 ### CONTRIBUTE
 First of all, thank you!
