@@ -12,7 +12,7 @@ TODO:
 ### INSTALL
 1. Install dependencies
 ```bash
-sudo apt-get install git mysql-server apache2 python-pip libapache2-mod-wsgi
+sudo apt-get install git mysql-server python-pip
 ```
 
 2. Install flask and other python modules:
@@ -20,39 +20,37 @@ sudo apt-get install git mysql-server apache2 python-pip libapache2-mod-wsgi
 pip install flask-sqlalchemy flask-wtf flask-login requests python-mysql
 ```
 
-3. Assuming cloned to /var/www, add to /etc/apache2/httpd.conf:
-```apache
-    <VirtualHost *>
-        WSGIDaemonProcess application user=www-data group=www-data threads=5
-        WSGIScriptAlias / /var/www/GUTS_website/guts.wsgi
-
-        <Directory /var/www/GUTS_website>
-            WSGIProcessGroup application
-            WSGIApplicationGroup %{GLOBAL}
-            Order deny,allow
-            Allow from all
-        </Directory>
-    </VirtualHost>
-```
-
-4. Create mysql user and database:
+### CONFIGURE
+1. Create mysql user and database:
 ```mysql
 create database guts;
 create user 'guts'@'localhost' identified by 'password';
 grant all privileges on guts.* to 'guts'@'localhost';
 ```
 
-5. Create tables from the models:
+2. Create a copy of the `guts_website/sensitive.py.fake`
+
+```bash
+cp guts_website/sensitive.py{.fake,}
+```
+3. Change the following variables in `guts_website/sensitive.py` to match your settings:
+ * `DB_PASSWORD`
+ * `ADMIN_USER`
+ * `ADMIN_PASSWORD`
+
+4. Create tables from the models:
 ```python
 >>>> from guts_website import db, models
 >>>> db.create_all()
 ```
 
-### CONFIGURE
-The file `guts_website/sensitive.py` contains passwords which are not the same as in the production environment for obvious reasons. You can play with the sandbox page as much as you would like.
-
 ### USE
-To add new technology:
+#### Running the application
+```bash
+python run.py
+```
+
+#### Adding new technology
 ```python
 project = models.Project("title", "author", "contact", "web address", "description", "icon")
 project.technologies.append(models.Technology("flask", "http://flask.pocoo.org/"))
