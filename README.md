@@ -11,53 +11,52 @@ TODO:
 
 ### INSTALL
 1. Install dependencies
-<pre><code>
-sudo apt-get install git mysql-server apache2 python-pip libapache2-mod-wsgi python-mysqldb
-</code></pre>
+```bash
+sudo apt-get install git mysql-server python-pip
+```
 
 2. Install flask and other python modules:
-<pre><code>
-pip install flask-sqlalchemy flask-wtf flask-login requests
-</code></pre>
+```bash
+pip install flask-sqlalchemy flask-wtf flask-login requests python-mysql
+```
 
-3. Assuming cloned to /var/www, add to /etc/apache2/httpd.conf:
-<pre><code>
-    <VirtualHost *>
-
-        WSGIDaemonProcess application user=www-data group=www-data threads=5
-        WSGIScriptAlias / /var/www/GUTS_website/guts.wsgi
-
-        <Directory /var/www/GUTS_website>
-            WSGIProcessGroup application
-            WSGIApplicationGroup %{GLOBAL}
-            Order deny,allow
-            Allow from all
-        </Directory>
-    </VirtualHost>
-</code></pre>
-
-4. Create mysql user and database:
-<pre><code>
+### CONFIGURE
+1. Create mysql user and database:
+```mysql
 create database guts;
 create user 'guts'@'localhost' identified by 'password';
 grant all privileges on guts.* to 'guts'@'localhost';
-</code></pre>
+```
 
-5. Create tables from the models:
-<pre><code>
-python
->>>> from guts_website import db, models
->>>> db.create_all()
+2. Create a copy of the `guts_website/sensitive.py.fake`:
+```bash
+cp guts_website/sensitive.py{.fake,}
+```
 
-To add new technology:
+3. Change the following variables in `guts_website/sensitive.py` to match your settings:
+ * `DB_PASSWORD`
+ * `ADMIN_USER`
+ * `ADMIN_PASSWORD`
+
+4. Create tables from the models:
+```python
+from guts_website import db, models
+db.create_all()
+```
+
+### USE
+#### Running the application
+```bash
+python run.py
+```
+
+#### Adding new technology
+```python
 project = models.Project("title", "author", "contact", "web address", "description", "icon")
 project.technologies.append(models.Technology("flask", "http://flask.pocoo.org/"))
 db.session.add(project);
 db.session.commit()
-</code></pre>
-
-### CONFIGURE
-The file `guts_website/sensitive.py` contains passwords which are not the same as in the production environment for obvious reasons. You can play with the sandbox page as much as you would like.
+```
 
 ### CONTRIBUTE
 First of all, thank you!
