@@ -28,11 +28,11 @@ create user 'guts'@'localhost' identified by 'password';
 grant all privileges on guts.* to 'guts'@'localhost';
 ```
 
-2. Create a copy of the `guts_website/sensitive.py.fake`
-
+2. Create a copy of the `guts_website/sensitive.py.fake`:
 ```bash
 cp guts_website/sensitive.py{.fake,}
 ```
+
 3. Change the following variables in `guts_website/sensitive.py` to match your settings:
  * `DB_PASSWORD`
  * `ADMIN_USER`
@@ -40,8 +40,8 @@ cp guts_website/sensitive.py{.fake,}
 
 4. Create tables from the models:
 ```python
->>>> from guts_website import db, models
->>>> db.create_all()
+from guts_website import db, models
+db.create_all()
 ```
 
 ### USE
