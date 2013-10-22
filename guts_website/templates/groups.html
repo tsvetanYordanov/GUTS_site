@@ -1,0 +1,111 @@
+{% extends "layout.html" %}
+{% set active_page = "groups" %}
+{% block body %}
+<link rel="stylesheet" href="static/css/blueimp-gallery.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+<script>
+// Object to hold which galleries have been loaded already
+var loaded_galleries = {};
+</script>
+<!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+<!--Main container-->
+<div class="container">
+  <div class="row">
+      <div class="col-md-8">
+          <h2>Dumbledore's Army! <span class="text-muted">A place for our interests.</span></h2>
+          <p class="lead">Web development, Mobile apps, Scientific programming - you name it!</p>
+          <blockquote><b>Hermione:</b> "You all know why we're here. We need a teacher. A proper teacher. One who's had real experience defending themselves against the Dark Arts."</br>
+<b>Zacharias Smith:</b> "Why?"<br>
+<b>Ron:</b> "Why. Because You-Know-Who's back, you tosspot."</blockquote>
+<p>Well, in our case it's not that wild, though it's good to compete against other universities. We just want a place to practice and learn more about our interests. Feel free (both meanings) to drop in in our sessions.</p>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-3 hidden-xs hidden-sm">
+        <img src="static/img/dumbledores_army.png" alt="da" />
+    </div>
+  </div>
+  <hr>
+  {% set num = 1 %}
+  {% for g in groups %}
+    {% if num % 2 == 1 %}
+    <div class="row"> <!-- row -->
+    {% endif %}
+      <div class="col-lg-6"> <!-- col -->
+        <div class="panel panel-primary">
+          <div class="panel-body">
+            {% if g.icon %}
+            <img src="static/p_img/{{ g.icon }}" style="height: 150px" alt="group icon" class="pull-right"/>
+            {% endif %}
+            <h2>{{ g.title }}</h2>
+            <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-user"></span>
+                <a href="{{g.contact}}" target="_blank">{{ g.host }}</a>
+            </h4>
+            {% if g.fb_group %}
+            <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-globe"></span>
+                <a href="{{ g.fb_group }}" target="_blank">Facebook group</a>
+            </h4>
+            {% endif %}
+            <table class="table" style="width:100%">
+            <tr>
+                {% if g.meetings %}
+                <td style="padding:10px;">
+                <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-calendar"></span>
+                    {{ g.meetings }}
+                </h4>
+                </td>
+                {% endif %}
+                {% if g.location %}
+                
+                <td style="padding:10px;">
+                <h4 style="font-family: 'Raleway', sans-serif;"><span class="glyphicon glyphicon-map-marker"></span>
+                    {{ g.location }}
+                </h4>
+                </td>
+                {% endif %}
+             </tr>
+             </table>
+            <p >{{ g.description|safe }}</p>
+          </div>
+        </div>
+      </div> <!-- !col -->
+    {% if num % 2 == 0 %}
+    </div>  <!-- !row -->
+    {% endif %}
+    {% set num = num + 1 %}
+  {% endfor %}
+  {% if num % 2 == 1 %}
+  </div>  <!-- !row -->
+  {% endif %}
+  {% include "footer.html" %}
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

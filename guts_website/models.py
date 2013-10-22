@@ -144,7 +144,28 @@ class Platform(db.Model, DictSerializable):
     def __repr__(self):
         return '<name %r>' % self.name
 
+class Group(db.Model, DictSerializable):
+    __tablename__ = 'group_'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120), unique=True)
+    host = db.Column(db.String(120), unique=False)
+    contact = db.Column(db.String(120), unique=False)
+    meetings = db.Column(db.String(200), unique=False)
+    location = db.Column(db.String(200), unique=False)
+    fb_group = db.Column(db.String(300), unique=False)
+    description = db.Column(db.String(1000), unique=False)
+    icon = db.Column(db.String(120), unique=False)
 
+    def __init__(self, title, host, contact, meetings, description, icon):
+        self.title = title
+        self.host = host
+        self.contact = contact
+        self.meetings = meetings
+        self.description = description
+        self.icon = icon
+
+    def __repr__(self):
+        return '<name %r>' % self.title
 
 
 

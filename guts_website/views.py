@@ -34,6 +34,11 @@ def show_meetings():
     past_events = models.Event.query.filter(models.Event.dtend < datetime.now()).order_by(models.Event.dtstart.desc()).all()
     return render_template('meetings.html', events = events, past_events = past_events, now = now)
     
+@app.route('/groups')
+def show_groups():
+    groups = models.Group.query.all();
+    return render_template('groups.html', groups = groups)
+
 @app.route('/projects')
 def show_projects():
     projects = models.Project.query.order_by(models.Project.id.desc()).all();
