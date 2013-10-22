@@ -28,7 +28,7 @@
               <ul class="nav navbar-nav">
                 {% for href, id, caption in navigation_bar %}
                   <li{% if id == active_page %} class="active"{% endif
-                  %}><a href="{{ href|e }}">{{ caption|e }}</a></li>
+                  %}><a href="{{ href|e }}" onclick="javascript:close_vote()">{{ caption|e }}</a></li>
                 {% endfor %}
               </ul>
             </div>

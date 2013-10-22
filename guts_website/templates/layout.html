@@ -82,7 +82,7 @@
   })
   function close_vote() {
     $("#vote").slideUp();
-    $.cookie("vote", "closed");
+    $.cookie("vote", "closed", { expires: 7 });
   }
   </script>
   </body>
