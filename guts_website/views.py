@@ -316,7 +316,16 @@ def template():
                            fb_event = event.fb_event,
                            time = time,
                            location = event.location)
-    
+
+@app.route('/email_hackathon', methods=['GET'])
+@login_required
+def email_hackathon():
+    description =         description = "This is it! We are thrilled to announce that the tickets for Glasgow University Tech Society's first ever hackathon are now available for <a href='http://www.eventbrite.co.uk/event/8778636137?nomo=1'>reservation</a>! Join us on the 1st-3rd of November with faces from industry and academia for the most creative 29 hours of your life. Did I forget to mention the free Domino's pizzas and awesome prizes? Hurry up, the tickets are selling as we speak!  Entry only 5 pounds per person! <br><br> We look forward to seeing you all there :)"
+    time="1-3 November"
+    return render_template ('email_hackathon.html', 
+                           description = description,
+                           time = time)
+
 @app.route('/send_email')
 @login_required
 def send_mail():
@@ -375,10 +384,71 @@ def send_mail():
        
         # sendmail function takes 3 arguments: sender's address, recipient's address
         # and message to send - here it is sent as one string.
-        server.sendmail(sender, recipient, msg.as_string())
+        try:
+            server.sendmail(sender, recipient, msg.as_string())
+            print "Sent email to " + recipient
+        except SMTPException:
+            print "Failed to send email to " + recipient
     server.quit()
     return "sent!"
 
+@app.route('/send_email_hackathon')
+@login_required
+def send_mail_hackathon():
+    subject = "GUTS Hackathon Event"
+    sender = EMAIL_ADDRESS
+    
+    members = models.Member.query.all();
+    
+     # Send the message via local SMTP server.
+    # server = smtplib.SMTP('smtp.gmail.com',587)             # gmail port 465 or 587 
+    server = smtplib.SMTP_SSL(SMTP_SERVER,465) # godaddy
+    server.ehlo()                                             # both
+    #server.starttls()                                        # gmail
+    #server.ehlo()                                            # gmail
+    server.login(EMAIL_ADDRESS,EMAIL_PASSWORD)         # both
+    
+    for m in members:
+        recipient = m.email
+        req_key = m.write_key;
+
+        # Create message container - the correct MIME type is multipart/alternative.
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = subject
+        msg['From'] = sender
+        msg['To'] = recipient
+
+        description = "This is it! We are thrilled to announce that the tickets for Glasgow University Tech Society's first ever hackathon are now available for <a href='http://www.eventbrite.co.uk/event/8778636137?nomo=1'>reservation</a>! Join us on the 1st-3rd of November with faces from industry and academia for the most creative 29 hours of your life. Did I forget to mention the free Domino's pizzas and awesome prizes? Hurry up, the tickets are selling as we speak! Entry only 5 pounds per person! <br><br> We look forward to seeing you all there :)"
+        time="1-3 November"
+        # Create the body of the message (a plain-text and an HTML version).
+        text = "Tech Society has the pleasure of inviting you to the hackathon event of the year!\n\n--------------------------------------------------\n\nWhen: "+time+"\n--------------------------------------------------\n"+description+"--------------------------------------------------\n\n"+"To edit your subscription settings, visit: http://www.gutechsoc.com/subscription?email="+recipient+"&req_key="+req_key+"\n"
+        html = render_template('email_hackathon.html', 
+                           subject = subject, 
+                           recipient = recipient, 
+                           req_key = req_key,
+                           description = description,
+                           time = time)
+
+        # Record the MIME types of both parts - text/plain and text/html.
+        part1 = MIMEText(text, 'plain')
+        part2 = MIMEText(html, 'html')
+
+        # Attach parts into message container.
+        # According to RFC 2046, the last part of a multipart message, in this case
+        # the HTML message, is best and preferred.
+        msg.attach(part1)
+        msg.attach(part2)
+
+       
+        # sendmail function takes 3 arguments: sender's address, recipient's address
+        # and message to send - here it is sent as one string.
+        try:
+            server.sendmail(sender, recipient, msg.as_string())
+            print "Sent email to " + recipient
+        except SMTPException:
+            print "Failed to send email to " + recipient
+    server.quit()
+    return "sent!"
 
 
 
