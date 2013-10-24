@@ -115,7 +115,7 @@ var loaded_galleries = {};
   {% include "footer.html" %}
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.5.1/jquery.nicescroll.js"></script>
-
+<script src="static/js/blueimp-gallery.min.js"></script>
 <script>
 // load more images dynamically
 function load_more_images(id) {
@@ -154,7 +154,7 @@ function load_more_images(id) {
 $(document).ready(
     function() {
         // Pretty scrollbars
-        $("#gallery").niceScroll();
+        // $("#gallery").niceScroll();     <= DOESN'T LOAD ON ALL GALERIES
         // Load images that are on screen
         for (var curId in loaded_galleries) {
             if (loaded_galleries[curId] == "false" && $(window).height() > $("#gallery_" + curId).position().top) {
@@ -176,7 +176,7 @@ $(document).ready(
     }
 );
 </script>
-<script src="static/js/blueimp-gallery.min.js"></script>
+
 {% endblock %}
 
 
