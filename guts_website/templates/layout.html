@@ -41,13 +41,6 @@
     </style>
   </head>
   <body>
-  
-  <div style="background-color: #444; padding: 15px;" id="vote" hidden>
-      <img class="pull-left" style="margin:10px;"src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/s160x160/1377457_564102530329056_1713738776_a.jpg" height="100"/>
-      <button type="button" class="close" style="color:#fff; font-size:25pt;" onclick="close_vote();">&times;</button>
-      <h3 style="color: #eee">Your vote counts. Today is the day!</h3>
-      <p style="color: #eee">Glasgow University Tech Society supports <a href="vote.oscarschafer.com" target="_blank">Oscar Schafer</a> for SRC Computer Science Representative. <br><a href="http://www.glasgowstudent.net/vote/" target="_blank">Vote here!</a></p>
-  </div>
     {% set active_page = active_page %}
     {% include "navigation.html" %}
     {% block body %} {% endblock %}
@@ -71,19 +64,7 @@
     })();
   </script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.3.1/jquery.cookie.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   <script src="../static/js/get_email.js"></script>
-  <script>
-  $(document).ready(function() {
-    if (!$.cookie("vote_today")) {
-        $("#vote").slideDown();
-    }
-  })
-  function close_vote() {
-    $("#vote").slideUp();
-    $.cookie("vote_today", "closed");
-  }
-  </script>
   </body>
 </html>
