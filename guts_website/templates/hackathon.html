@@ -3,9 +3,9 @@
 {% block body %}
 <style type="text/css">
 .keep_calm_footer {
-    height: 20px; 
-    padding-left: 8px; 
-    padding-right: 8px;
+    height: 30px; 
+    padding-left: 13px; 
+    padding-right: 13px;
 }
 
 A.hash:link  {text-decoration: none; color: white;}
@@ -15,7 +15,7 @@ A.hash:active {text-decoration: none; color: white;}
 </style>
 <div class="container">
   <div class="jumbotron" style="background-color: #B22222; color: white">
-    <div class="container">
+    <div class="container"><div class="col-md-6">
       <center>
       <a href="#register"><img src="static/img/doyouhavetheguts.png" alt="do you have the guts" height="300px"/></a>
       <h1><a href="https://twitter.com/search?src=typd&q=%23guhack" target="blank" class="hash">#guhack</a></h1>
@@ -55,7 +55,6 @@ A.hash:active {text-decoration: none; color: white;}
       <a href="http://www.metaswitch.com/" target="_blank">
         <img src="static/img/hackathon/metaswitch.png" alt="metaswitch icon" class="keep_calm_footer"/>
       </a>
-      <br>
       <a href="http://www.skyscanner.com/" target="_blank">
         <img src="static/img/hackathon/skyscanner.png" alt="skyscanner icon" class="keep_calm_footer"/>
       </a>
@@ -83,14 +82,19 @@ A.hash:active {text-decoration: none; color: white;}
       
       </center>
       
+      </div>
+      <div class="col-md-6">
+      <a class="twitter-timeline" href="https://twitter.com/search?q=%23guhack" data-widget-id="396648184358776832"></a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+      </div>
   </div><!-- / jumbotron -->
   </div>
   <hr>
-    <a name="register"></a>
-    <center>
-    <p class="lead">You think you've got what it takes?</p>
-    <p><a class="btn btn-success btn-lg" href="http://www.eventbrite.co.uk/event/8778636137?nomo=1" target="_blank">Register</a></p>
-  </center>
+    
+
+
   <hr>
   <div class="row">
       <div class="col-md-9">
@@ -169,6 +173,48 @@ Please be aware that the media may decide to cover the hackathon and filming may
 
   {% include "footer.html" %}
 </div>
+
+<script>
+function get_challenges() {
+    $.ajax({
+        type: "GET",
+        url: "/get_challenges",
+        dataType: "json",
+        success: function(results){
+            var theData = results;
+            var theTemplateScript = $("#t-challenge").html();
+            var theTemplate = Handlebars.compile (theTemplateScript); 
+            var html = theTemplate (theData);
+            $("#challenges-list").html(html);
+        }
+      })
+}
+$(document).ready(function() {
+  get_challenges()
+})
+</script>
+
+<script id="t-challenge" type="text/x-handlebars-template">
+{% raw %}
+{{#each challenges}}
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="media">
+        <a class="pull-left" href="#">
+          <img class="media-object" style="width:60px" src="static/services/{{Service.icon}}" alt="service_icon"/>
+        </a>
+        <div class="media-body">
+          <h4 class="media-heading">{{Service.name}}</h4>
+          <i class="text-muted">{{Service.description}} UNIQUE_ID:[{{User_Service.id}}]</i>
+        </div>
+      </div>
+  </div>
+</div>
+{{/each}}
+{% endraw %}
+</script>
+
+
 {% endblock %}
 
 

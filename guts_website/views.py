@@ -131,7 +131,11 @@ def get_platforms():
     else:
         platforms = models.Platform.query.all();
     return jsonify(posts=list(platforms));
-   
+
+@app.route('/get_challenges')
+def get_challenges():
+    challenges = models.Challenge.query.all();
+    return jsonify(challenges=list(challenges))
 ################################################################################
 ##########################         LOGIN         ###############################
 

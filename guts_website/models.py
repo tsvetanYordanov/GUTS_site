@@ -167,10 +167,37 @@ class Group(db.Model, DictSerializable):
     def __repr__(self):
         return '<name %r>' % self.title
 
+class Challenge(db.Model, DictSerializable):
+    __tablename__ = 'challenge'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), unique=False)
+    short_desc = db.Column(db.String(300), unique=False)
+    long_desc = db.Column(db.String(1500), unique=False)
+    icon = db.Column(db.String(100), unique=False)
+    repo = db.Column(db.String(100), unique=False)
+    website = db.Column(db.String(100), unique=False)
+    teams = relationship("Team", backref="challenge")
+    
+    def __init__(self, title, short_desc, long_desc, icon, repo, website):
+        self.title = title
+        self.short_desc = short_desc
+        self.long_desc = long_desc
+        self.icon = icon
+        self.repo = repo
+        self.website = website
+        
+class Team(db.Model, DictSerializable):
+    __tablename__ = 'team'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=False)
+    challenge_id = Column(Integer, ForeignKey('challenge.id'))
+    participants = relationship("Participant", backref="team")
 
-
-
-
+class Participant(db.Model, DictSerializable):
+    __tablename__ = 'participant'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=False)
+    challenge_id = Column(Integer, ForeignKey('team.id'))
 
 
 
