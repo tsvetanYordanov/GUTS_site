@@ -94,7 +94,10 @@ def hackathon_details():
 @app.route('/get_galleries_files')
 def galleries():
     gid = request.args.get('gallery_id');
-    return jsonify({"files":[x for x in os.listdir(os.path.join(GALLERY_PATH,gid,'t'))]});
+    filelist = [x for x in os.listdir(os.path.join(GALLERY_PATH,gid,'t'))]
+    filelist.sort()
+    return jsonify({"files": filelist});
+
     
 @app.route('/get_events')
 def get_events():
