@@ -58,6 +58,12 @@ class Member(db.Model, DictSerializable):
     def __repr__(self):
         return '<Email %r>' % self.email
 
+class HackathonNotify(db.Model, DictSerializable):
+    __tablename__ = 'hackathon_notify'
+    id = db.Column(db.Integer, primary_key=True)
+    fullname = db.Column(db.String(120), unique=False)
+    email = db.Column(db.String(120), unique=True)
+
 class Event(db.Model, DictSerializable):
     __tablename__ = 'event'
     id = db.Column(db.Integer, primary_key=True)

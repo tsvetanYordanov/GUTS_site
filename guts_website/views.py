@@ -82,6 +82,30 @@ def show_submit():
         db.session.add(e)
         db.session.commit()
         return finalEmail
+        
+@app.route('/hackathon_notify', methods = ['POST'])
+def show_hackathon_notify():
+    finalEmail = request.form["other_email"]
+    print(request.form)
+    if not re.match(r"(\w+[.|\w])*@(\w+[.])*\w+", finalEmail):
+        return "INVALID_EMAIL"
+    c = models.HackathonNotify.query.filter(models.HackathonNotify.email == finalEmail).first()
+    print(c)
+    if (c):
+        print('a')
+        return "EMAIL_EXISTS"
+    elif (request.form["confirm_gu"] == "false"):
+        print('b')
+        return "NOT_GU"
+    else:
+        print('c')
+        e = models.HackathonNotify(
+          fullname = request.form["fullname"], 
+          email = finalEmail
+        )
+        db.session.add(e)
+        db.session.commit()
+        return finalEmail
 
 @app.route('/sitemap.xml')
 def sitemap():

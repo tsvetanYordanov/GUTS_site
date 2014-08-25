@@ -1,19 +1,73 @@
 {% extends "layout.html" %}
 {% set active_page = "hackathon" %}
 {% block body %}
+{% include "modal-hackathon.html" %}
 <style type="text/css">
-.keep_calm_footer {
-    height: 25px; 
-    padding-left: 7px; 
-    padding-right: 7px;
-}
-
 A.hash:link  {text-decoration: none; color: white;}
 A.hash:visited {text-decoration: none; color: white;}
 A.hash:hover {text-decoration: underline; color: white;}
 A.hash:active {text-decoration: none; color: white;}
 </style>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<div>
+  <div style="background: url('static/img/hackathon/cover_b.jpg'); background-size: cover; color: white; padding: 50px; width: 100%; margin-top:-20px;">
+    <div class="container">
+      <center>
+      <a href="#register"><img src="static/img/doyouhavetheguts.png" alt="do you have the guts" height="300px"/></a>
+      <hr>
+      <h2 style="font-family: 'Raleway', sans-serif; color: white;">
+        <img src="/static/img/cal.png" height="30px"/>
+        10-12 October 2014 | <a class="hash" href="https://twitter.com/search?q=%23doyouhavetheguts" target="_blank">#DoYouHaveTheGUTS</a>
+      </h2>
+     </center>
+      </div>
+  </div>
+  <hr>
+    <a name="register"></a>
+    <center>
+    <p><a data-toggle="modal" href="#modal-hackathon" class="btn btn-success btn-lg">Notify me when registration opens</a></p>
+    </center>
+  <hr>
+  <div class="container">
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm">
+        <img src="static/img/brain_bomb.png" alt="brain bomb"/>
+    </div>
+      <div class="col-md-9">
+            <h2>What is this? Is it for me?</h2>
+            <p class="lead">If you want to skip the small talk and just create something awesome - this is the place to be.</p>
+            <p>Whether you are a regular at hackathons or a complete newbie - you are welcome! Team up, pick a challenge and solve it in 48 hours using all the superpowers that you acquired so far in your life!</p>
+            <p>You need a laptop and a student ID. We recommend also bringing sleeping bag and toiletiers. This hackathon will be an exhausting 48 hour event and we encourage hackers to make use of the sleeping space that will be provided. Of course, food and bevarages will be of virtually infinite quantities! We will also provide travel reimbursement.</p>
+      </div>
+  </div>
+  <hr>
+  <div class="row">
+      <div class="col-md-9">
+            <h2>Bigger. Better. More challenging!</h2>
+            <p class="lead">Now covering all of Scotland with a true 48 hour hackathon. A celebration of technology.</p>
+            <p>"Do you have the GUTS?" hackathon is more than just coding. We are creating a Silicon Valley-like environment for you to beat the stress and have a very fun and productive weekend! Glasgow is a smart city of the future - hack will be the place where the smart tech city ideas may be created. With more partnerships you will have the opportunity to meet the right people to make a real impact on the world.</p>
+      </div>
+      <div class="col-md-3 hidden-xs hidden-sm">
+        <img src="static/img/hackathon/scotland.png" alt="scotland" style="height:300px;"/>
+    </div>
+  </div>
+  <hr>
+  
+  <div class="row">
+      <div class="col-md-5 hidden-xs hidden-sm">
+        <iframe style="width:100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=Sir+Awlyn+Williams+Building+Glasgow&ie=UTF8&z=17&t=m&iwloc=near&output=embed"></iframe><br>
+    </div>
+    <div class="col-md-7">
+            <h2>I'm in! What do I need to do?</span></h2>
+            <p class="lead">Press the big green button and enter your email. We will let you know pretty soon about details!</p>
+            <p>The event will take place in the second weekend of October and it will be at the University of Glasgow. You can either team up beforehand or find new people at the event so don't worry about that yet. Mark your calendar, star the location, press the button below and get psyched! Do you have the GUTS?</p>
+      </div>
+  </div>
+  <hr>
+    <a name="register"></a>
+    <center>
+    <p><a data-toggle="modal" href="#modal-hackathon" class="btn btn-success btn-lg">Notify me when registration opens</a></p>
+  <hr>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 <link rel="stylesheet" href="static/css/blueimp-gallery.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.5.1/jquery.nicescroll.js"></script>
@@ -29,7 +83,7 @@ A.hash:active {text-decoration: none; color: white;}
 </div>
 
 <div class="container">
-  <h1 style="font-family: 'Raleway', sans-serif; text-align: center;font-size: 55pt;">Thank you!</h1>
+  <h1 style="font-family: 'Raleway', sans-serif; text-align: center;font-size: 38pt;">See the 2013 edition of "Do you have the GUTS?"</h1>
   <hr>
   <div class="row">
 <div class="panel panel-default">
@@ -39,157 +93,50 @@ A.hash:active {text-decoration: none; color: white;}
 </div>
 </div>
 </div>
-<hr>
+  <div class="row">
+      <div align="justify" class="col-lg-12">
+        <center><h1><a name="faq"></a>FAQ</h1></center>
+<b>How much is it going to cost me to participate?</b><br>
+It will be £5 per person. Once we create the event we will send email to all participants.<br>
+<br>
+<b>Do we work individually or in teams?</b>
+<br>You’ll be working in small teams (3-5 people) that you can choose either before or after coming. </br>
+<br>
+<b>How are you going to allocate me in a team if I don't have one?</b>
+<br>We will help you find your codemates. We've done this before, don't worry about it!</br>
+<br>
+<b>What is the schedule?</b><br>
+We will anounce more details closer to the event. But it's usually: Friday evening: anouncing challenges and team allocation. Saturday and Sunday - coding. Sunday afternoon - results, presentations and awards.<br>
+<br>
+<b>What are the challenges?</b>
+<br>Can't tell you! You'll get to know that on the date of the event.</br>
+<br>
+<b>Can I start before the hackathon?</b><br>
+You started when you were born! Other than that - as challenges will be announce on Friday evening, at any moment after that you can start planing, brainstorming or coding.<br>
+<br>
+<b>Can I bring my own laptop?</b><br>
+Yes. We encourage developers to bring their own devices. It is expected that you will demo your project directly on your computer. You can also bring phones, tablets, raspberry pies and teddy bears - whatever helps you.<br>
+<br>
+<b>What if I don’t finish the project in the allotted time period?</b><br>
+You will be judged based on the completed features. It will be up to the judges’ discretion to determine how your project ranks against other teams’ projects.<br>
+<br>
+<b>Tell me some more about the prizes.</b><br>
+Prizes will be given to winners on the day or shortly after the hackathon. We'll give you more information on Friday evening.<br>
+<br>
+<b>What will you do with my information?</b><br>
+We’ll only use your information for organising the hackathon and telling you about the event and the winners. We hate spam as much as you do so we’ll only contact you to let you know when the registration is open.<br>
+<br>
+<b>I have an UAQ (Unfrequently Asked Question)</b></br>
+<a href="mailto:team@gutechsoc.com">Contact us!</a><br>
+<br>
+      </div>
   </div>
-  <div class="container"><div class="col-md-6">
-  <div class="jumbotron" style="background-color: #B22222; color: white">
-    <div class="container">
-      <center>
-      <a href="#register"><img src="static/img/doyouhavetheguts.png" alt="do you have the guts" height="300px"/></a>
-      <hr>
-      <h2 style="font-family: 'Raleway', sans-serif; color: white;">
-        <!--<span class="glyphicon glyphicon-calendar"></span>-->
-        <img src="/static/img/cal.png" height="30px"/>
-        1 - 3 November 2013
-      </h2>
-      <hr>
-      <a href="http://gutechsoc.com" target="_blank">
-        <img src="static/img/hackathon/logo_bw.png" alt="gutechsoc icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://www.gla.ac.uk/" target="_blank">
-        <img src="static/img/hackathon/uog_white.png" alt="university of glasgow icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://www.dcs.gla.ac.uk/~matthew/DCS/Sumgroup.html" target="_blank" style="font-family: 'Raleway', sans-serif; color: white;">
-        SUMGroup</a>
-      <a href="http://www.sie.ac.uk/" target="_blank">
-        <img src="static/img/hackathon/sie_logo.png" alt="sie icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://www.jpmorgan.com/" target="_blank">
-        <img src="static/img/hackathon/jpmorgan.png" alt="compsoc icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://www.barclays.co.uk/" target="_blank">
-        <img src="static/img/hackathon/barclays.png" alt="sie icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://www.amazon.com/" target="_blank">
-        <img src="static/img/hackathon/amazon.png" alt="sie icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://www.sas.com/" target="_blank">
-        <img src="static/img/hackathon/sas.png" alt="sie icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://www.github.com/" target="_blank">
-        <img src="static/img/hackathon/github.png" alt="sie icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://www.metaswitch.com/" target="_blank">
-        <img src="static/img/hackathon/metaswitch.png" alt="metaswitch icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://www.skyscanner.com/" target="_blank">
-        <img src="static/img/hackathon/skyscanner.png" alt="skyscanner icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://www.dynamicallyloaded.com/" target="_blank">
-        <img src="static/img/hackathon/dynamicallyloaded.png" alt="dynamicallyloaded icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://www.svc2uk.com/" target="_blank">
-        <img src="static/img/hackathon/svc2uk.png" alt="svc2uk icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://www.informatics-ventures.com/" target="_blank">
-        <img src="static/img/hackathon/info_ventures.png" alt="informatics ventures icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://www.dominos.co.uk/" target="_blank">
-        <img src="static/img/hackathon/dominos.png" alt="dominos icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://www.nakedsoup.com/" target="_blank">
-        <img src="static/img/hackathon/naked-soup.png" alt="naked soup icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://scotlandhacks.org.uk/" target="_blank">
-        <img src="static/img/hackathon/scotland_hacks.png" alt="scotland hacks icon" class="keep_calm_footer"/>
-      </a>
-      <a href="http://glasgowcompsoc.com/" target="_blank">
-        <img src="static/img/hackathon/compsoc.png" alt="compsoc icon" class="keep_calm_footer"/>
-      </a>
-      
-     </center>
-      
-      </div>
- </div><!-- / jumbotron -->
-</div>
-       <div class="col-md-6">
-      <a class="twitter-timeline" href="https://twitter.com/search?q=%23guhack" data-widget-id="396648184358776832"></a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  
 
-
-      </div>
-</div> 
 
 
   {% include "footer.html" %}
+  </div>
 </div>
-
-<script src="static/js/blueimp-gallery.min.js"></script>
-<script>
-// load more images dynamically
-function load_more_images(id) {
-    gurl = "/get_galleries_files?gallery_id=" + id + "";
-    $.ajax({
-        url: gurl,
-        dataType : 'json', 
-        success:function(result){
-            for (var pic = 0; pic < result.files.length; pic++){
-                a=result;
-                picHTML = ""
-                picHTML += 
-                    "<div class=\"col-sm-6 col-md-2\" style=\"display: inline-block; float: none\">" +
-                        "<a href=\"static/gallery/" + id + "/o/" + result.files[pic] + "\" class=\"thumbnail\">" +
-                            "<img src=\"static/gallery/" + id + "/t/" + result.files[pic] + "\" alt=\"...\" style=\"height:100px;\">" +
-                        "</a>" +
-                        "</div>";
-                $("#gallery_" + id).append(picHTML)
-            }
-        }
-    });
-    // Lightbox element
-    document.getElementById('gallery_' + id).onclick = function (event) {
-        event = event || window.event;
-        var target = event.target || event.srcElement,
-            link = target.src ? target.parentNode : target,
-            options = {index: link, event: event},
-            links = this.getElementsByTagName('a');
-        blueimp.Gallery(links, options);
-    };
-
-}
-
-// On ready state of the page
-$(document).ready(
-    function() {
-        load_more_images(6);
-        $("#gallery_6").niceScroll();
-    }
-);
-</script>
-
-
-
-
-
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

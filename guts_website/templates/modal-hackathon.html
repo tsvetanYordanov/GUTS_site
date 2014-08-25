@@ -1,0 +1,40 @@
+  <!-- Modal -->
+  <div class="modal fade" id="modal-hackathon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Notifty me when registration opens</h4>
+        </div>
+        <div class="modal-body">
+          <div id="content_wrapper">
+            <div class="alert alert-danger" hidden id="modal-error"></div>
+            <!-- Prevents CSRF-->
+            {{form.hidden_tag()}}
+            Please enter your full name:
+            {{form.fullname(type='text', class='form-control', placeholder='Name Surname')}}
+            <br>
+            <div id="other_email_wrapper">
+              <p>Please enter an email that you check regularly:</p>
+              
+              <div class="input-group" id="other_email-container">
+                <span class="input-group-addon">email: </span>
+                {{form.other_email(type='text', class='form-control')}}
+              </div>
+              {{form.confirm_gu}}
+              I confirm that I am student in Scotland
+            </div>
+          </div>
+          
+          <div class="alert alert-success" id="modal-result" hidden>
+            <p id="modal-thanks">Thank you! You'll hear from us soon at </p>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" id="modal-hackathon-submit">Register</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->

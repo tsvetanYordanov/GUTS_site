@@ -67,3 +67,40 @@
          $("#modal-error").html("<b>Oh snap!</b> Invalid " + field_val + "!")
       }
     });
+    
+    $("#modal-hackathon-submit").click(function() {
+      isGU = false;
+      var field_val = valid_fields();
+      if ( field_val == "") {
+        $.ajax({
+          type : "POST",
+          url : "/hackathon_notify",
+          data: {
+            'fullname': $("#fullname").val(),
+            'other_email': $("#other_email").val(),
+            'confirm_gu': $("#confirm_gu").is(':checked')
+          },
+          dataType: 'text',
+          success: function(result) {
+              if (result == "EMAIL_EXISTS") {
+                $("#modal-error").slideDown();
+                $("#modal-error").html("<b>Oh snap!</b> This email already exists!")
+              } else if (result == "NOT_GU") {
+                $("#modal-error").slideDown();
+                $("#modal-error").html("<b>Oh snap!</b> You need to confirm that you are a student!")
+              } else if (result == "INVALID_EMAIL" ) {
+                $("#modal-error").slideDown();
+                $("#modal-error").html("<b>Oh snap!</b> Invalid email address!")
+              } else {
+                $("#content_wrapper").slideUp();
+                $("#modal-result").slideDown();
+                $("#modal-register").hide();
+                $("#modal-thanks").append(result);
+              }
+          }
+        });
+      } else {
+         $("#modal-error").slideDown();
+         $("#modal-error").html("<b>Oh snap!</b> Invalid " + field_val + "!")
+      }
+    });

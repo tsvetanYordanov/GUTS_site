@@ -17,7 +17,7 @@ sudo apt-get install git mysql-server python-pip
 
 2. Install flask and other python modules:
 ```bash
-pip install flask-sqlalchemy flask-wtf flask-login requests python-mysql
+pip install flask-sqlalchemy flask-wtf flask-login requests mysql-python
 ```
 
 ### CONFIGURE
