@@ -139,5 +139,48 @@ We’ll only use your information for organising the hackathon and telling you a
   {% include "footer.html" %}
   </div>
 </div>
+
+<script src="static/js/blueimp-gallery.min.js"></script>
+<script>
+// load more images dynamically
+function load_more_images(id) {
+    gurl = "/get_galleries_files?gallery_id=" + id + "";
+    $.ajax({
+        url: gurl,
+        dataType : 'json', 
+        success:function(result){
+            for (var pic = 0; pic < result.files.length; pic++){
+                a=result;
+                picHTML = ""
+                picHTML += 
+                    "<div class=\"col-sm-6 col-md-2\" style=\"display: inline-block; float: none\">" +
+                        "<a href=\"static/gallery/" + id + "/o/" + result.files[pic] + "\" class=\"thumbnail\">" +
+                            "<img src=\"static/gallery/" + id + "/t/" + result.files[pic] + "\" alt=\"...\" style=\"height:100px;\">" +
+                        "</a>" +
+                        "</div>";
+                $("#gallery_" + id).append(picHTML)
+            }
+        }
+    });
+    // Lightbox element
+    document.getElementById('gallery_' + id).onclick = function (event) {
+        event = event || window.event;
+        var target = event.target || event.srcElement,
+            link = target.src ? target.parentNode : target,
+            options = {index: link, event: event},
+            links = this.getElementsByTagName('a');
+        blueimp.Gallery(links, options);
+    };
+
+}
+
+// On ready state of the page
+$(document).ready(
+    function() {
+        load_more_images(6);
+        $("#gallery_6").niceScroll();
+    }
+);
+</script>
 {% endblock %}
 
